@@ -1,14 +1,17 @@
 package Ant0_n10.biblioteca.dto;
 
 import Ant0_n10.biblioteca.enumerations.StatusRead;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public final class BookDTO {
 
     public record Request(
-            String ISBN,
-            String title,
-            String author,
-            Integer yearOfPublication,
+            @NotBlank @Size(max = 13) String ISBN,
+            @NotBlank String title,
+            @NotBlank String author,
+            @NotNull Integer yearOfPublication,
             StatusRead statusRead
     ){}
 

@@ -16,18 +16,29 @@ import java.util.List;
 public class BookController {
     private final BookService bookService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<BookDTO.Response> createBook(@Valid @RequestBody BookDTO.Request request){
         return ResponseEntity.status(HttpStatus.CREATED).body(bookService.createBook(request));
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<BookDTO.Response>> getAllBooks(){
         return ResponseEntity.status(HttpStatus.OK).body(bookService.getAllBooks());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BookDTO.Response> getByIdBook(@PathVariable Long id) {
-        return ResponseEntity.ok(bookService.getByIdBook(id));
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.getByIdBook(id));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<BookDTO.Response> updateBook(@PathVariable Long id, @Valid @RequestBody BookDTO.Update update){
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.updateBook(id, update));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable Long id){
+        bookService.deleteBook(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
